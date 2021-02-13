@@ -120,51 +120,51 @@ const changeSlide = (index) => {
 }
 
 
-var div = document.querySelector('div');
-["click", "keypress"].forEach(ev=>{
-  div.addEventListener(ev, handleEvent);
-});
-function handleEvent(e){
- if(e.type=="keypress"){
-  document.querySelector('.main').style.display = 'none';
-  clearInterval(timer);
-  const search = document.getElementById('search');
-  // getImages(search.value)
-  sliders.length = 0;
-
-  sliderBtn.addEventListener("keypress", function () {
-    createSlider()
-  }
-  )}
-
-  if(e.type=="click"){
-    document.querySelector('.main').style.display = 'none';
-    clearInterval(timer);
-    const search = document.getElementById('search');
-    if (search > " "){
-      getImages(search.value)
-      sliders.length = 0;
-    }
-  }
-  
-  sliderBtn.addEventListener('click', function () {
-    createSlider()
-  }
-  )}
-
-
-
-// searchBtn.addEventListener('click', function () {
+// var div = document.querySelector('div');
+// ["click", "keypress"].forEach(ev=>{
+//   div.addEventListener(ev, handleEvent);
+// });
+// function handleEvent(e){
+//  if(e.type=="keypress"){
 //   document.querySelector('.main').style.display = 'none';
 //   clearInterval(timer);
 //   const search = document.getElementById('search');
-//   getImages(search.value)
+//   // getImages(search.value)
 //   sliders.length = 0;
-// })
 
-// sliderBtn.addEventListener('click', function () {
-//   createSlider()
-// })
+//   sliderBtn.addEventListener("keypress", function () {
+//     createSlider()
+//   }
+//   )}
+
+//   if(e.type=="click"){
+//     document.querySelector('.main').style.display = 'none';
+//     clearInterval(timer);
+//     const search = document.getElementById('search');
+//     if (search > ""){
+//       getImages(search.value)
+//       sliders.length = 0;
+//     }
+//   }
+  
+//   sliderBtn.addEventListener('click', function () {
+//     createSlider()
+//   }
+//   )}
+
+
+
+searchBtn.addEventListener('click', function () {
+  document.querySelector('.main').style.display = 'none';
+  clearInterval(timer);
+  const search = document.getElementById('search');
+  getImages(search.value)
+  sliders.length = 0;
+})
+
+sliderBtn.addEventListener('click', function () {
+  createSlider()
+})
 
 
 
