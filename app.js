@@ -24,11 +24,13 @@ const showImages = (images) => {
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
+    tongleSpinner (false);
   })
 
 }
 
 const getImages = (query) => {
+  tongleSpinner (true)
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
@@ -79,6 +81,7 @@ const createSlider = () => {
     src="${slide}"
     alt="">`;
     sliderContainer.appendChild(item)
+
   })
   }
 
@@ -120,40 +123,6 @@ const changeSlide = (index) => {
 }
 
 
-// var div = document.querySelector('div');
-// ["click", "keypress"].forEach(ev=>{
-//   div.addEventListener(ev, handleEvent);
-// });
-// function handleEvent(e){
-//  if(e.type=="keypress"){
-//   document.querySelector('.main').style.display = 'none';
-//   clearInterval(timer);
-//   const search = document.getElementById('search');
-//   // getImages(search.value)
-//   sliders.length = 0;
-
-//   sliderBtn.addEventListener("keypress", function () {
-//     createSlider()
-//   }
-//   )}
-
-//   if(e.type=="click"){
-//     document.querySelector('.main').style.display = 'none';
-//     clearInterval(timer);
-//     const search = document.getElementById('search');
-//     if (search > ""){
-//       getImages(search.value)
-//       sliders.length = 0;
-//     }
-//   }
-  
-//   sliderBtn.addEventListener('click', function () {
-//     createSlider()
-//   }
-//   )}
-
-
-
 searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'none';
   clearInterval(timer);
@@ -162,9 +131,15 @@ searchBtn.addEventListener('click', function () {
   sliders.length = 0;
 })
 
-sliderBtn.addEventListener('click', function () {
-  createSlider()
-})
 
 
+function tongleSpinner (show){
+  const spinner = document.getElementById("loading-spinner")
+  if (show){
+    spinner.classList.remove('d-none');
+  }
+  else{
+    spinner.classList.add('d-none');
+  }
+}
 
