@@ -17,10 +17,10 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 // show images 
 const showImages = (images) => {
   if (images.length == 0 || searchText.value == '') {
-    alert("Search Value be Null")
+    alert("Search Value can not be Null")
     tongleSpinner (false);
   }
-  
+
   else{
     imagesArea.style.display = 'block';
   gallery.innerHTML = '';
