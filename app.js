@@ -4,6 +4,7 @@ const galleryHeader = document.querySelector('.gallery-header');
 const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
+const searchText = document.getElementById("search");
 // selected image 
 let sliders = [];
 
@@ -25,6 +26,7 @@ const showImages = (images) => {
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
     tongleSpinner (false);
+    
   })
 
 }
@@ -40,22 +42,40 @@ const getImages = (query) => {
 let slideIndex = 0;
 const selectItem = (event, img) => {
   let element = event.target;
-  element.classList.add('added');
+  element.classList.toggle('added'); 
  
   let item = sliders.indexOf(img);
-  if (item === -1) {
-    sliders.push(img);
-  } else {
-    alert('Hey, Already added !')
+      if (item === -1) {
+      const displyCount = document.getElementById("countNumber")
+      const countNumber = sliders.push(img);
+      displyCount.innerText = ` ( Selected : ${countNumber})`;
+
+      } 
+      else {
+        const displyCount2 = document.getElementById("countNumber")
+        const countNumber2 = sliders.splice(item, 1);
+        displyCount2.innerText = countNumber2;
+       } 
   }
-}
+
+
 var timer
 const createSlider = () => {
+  let imageSlider = sliders.length
   // check slider image length
-  if (sliders.length < 2) {
+  if (imageSlider < 2) {
+    imageCounter();
     alert('Select at least 2 image.')
     return;
   }
+
+  //Duration validation
+const countDuration = document.getElementById('duration').value 
+  if (countDuration < 0){
+  alert("Duration Should be Positive Number !!!");
+  return;
+}
+
   // crate slider previous next area
   sliderContainer.innerHTML = '';
   const prevNext = document.createElement('div');
@@ -69,26 +89,19 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
   // hide image aria
   imagesArea.style.display = 'none';
-  const duration = document.getElementById('doration').value || 1000;
+  const duration = document.getElementById('duration').value || 1000;
 
-   //timer validation 
-  if (duration > 0){
-    console.log(duration);
-    sliders.forEach(slide => {
-    let item = document.createElement('div')
-    item.className = "slider-item";
-    item.innerHTML = `<img class="w-100"
-    src="${slide}"
-    alt="">`;
-    sliderContainer.appendChild(item)
+sliders.forEach(slide => {
+let item = document.createElement('div')
+item.className = "slider-item";
+item.innerHTML = `<img class="w-100"
+src="${slide}"
+alt="">`;
+sliderContainer.appendChild(item);
+})
+ 
 
-  })
-  }
-
-  else{
-    alert("Duration Should be Positive Number")
-
-  }
+  
   changeSlide(0)
   timer = setInterval(function () {
     slideIndex++;
@@ -123,6 +136,16 @@ const changeSlide = (index) => {
 }
 
 
+
+
+// Enter Button EventHandler
+searchText.addEventListener("keypress", function(event) {
+    if (event.key == 'Enter')
+    searchBtn.click();
+});
+
+
+// Search Button EventHandler
 searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'none';
   clearInterval(timer);
@@ -131,9 +154,13 @@ searchBtn.addEventListener('click', function () {
   sliders.length = 0;
 })
 
+sliderBtn.addEventListener('click', function () {
+  createSlider()
+})
 
 
-function tongleSpinner (show){
+// Spinner Function
+function tongleSpinner(show){
   const spinner = document.getElementById("loading-spinner")
   if (show){
     spinner.classList.remove('d-none');
@@ -142,4 +169,3 @@ function tongleSpinner (show){
     spinner.classList.add('d-none');
   }
 }
-

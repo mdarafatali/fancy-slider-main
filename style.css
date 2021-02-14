@@ -65,3 +65,14 @@ img {
   }
 }
 
+#span-tag{
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.loading-spinner{
+  margin: 40px;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+}
