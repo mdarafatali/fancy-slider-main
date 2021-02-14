@@ -16,7 +16,13 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
 // show images 
 const showImages = (images) => {
-  imagesArea.style.display = 'block';
+  if (images.length == 0 || searchText.value == '') {
+    alert("Search Value be Null")
+    tongleSpinner (false);
+  }
+  
+  else{
+    imagesArea.style.display = 'block';
   gallery.innerHTML = '';
   // show gallery title
   galleryHeader.style.display = 'flex';
@@ -28,6 +34,7 @@ const showImages = (images) => {
     tongleSpinner (false);
     
   })
+  }
 
 }
 
@@ -53,8 +60,9 @@ const selectItem = (event, img) => {
       } 
       else {
         const displyCount2 = document.getElementById("countNumber")
-        const countNumber2 = sliders.splice(item, 1);
-        displyCount2.innerText = countNumber2;
+        const countNumber2 = [sliders.splice(item, 1)];
+        console.log(countNumber)
+        displyCount2.innerText = ` ( DeSelected : ${countNumber2.length})`;
        } 
   }
 
@@ -64,7 +72,7 @@ const createSlider = () => {
   let imageSlider = sliders.length
   // check slider image length
   if (imageSlider < 2) {
-    imageCounter();
+    // imageCounter();
     alert('Select at least 2 image.')
     return;
   }
@@ -100,7 +108,6 @@ alt="">`;
 sliderContainer.appendChild(item);
 })
  
-
   
   changeSlide(0)
   timer = setInterval(function () {
